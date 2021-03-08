@@ -2,75 +2,38 @@
 <html lang="en">
   <head>
     <title>Weather-forecast</title>
-    <!-- <link rel="stylesheet" href="./style.css" /> -->
+
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Icons"
       rel="stylesheet"
     />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,700&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
-  <!-- Блок контроля
-Погода за сегодня
-Прогноз погоды на три дня
-Геолокационные данные -->
-
   <body>
-    <!-- кнопка для переключения фонового изображения
-кнопка для переключения языка (en/ru)
-кнопка для переключения единиц измерения температуры (°C/°F)
-строка поиска -->
-    <div class="control-block">
-      <button type="button" class="switch-background">фон</button>
-      <button type="button" class="switch-language">Язык</button>
-      <button type="button" class="toggle-temperature">температура</button>
+    <!-- <div class="card">
+      <div type="search">
+        <input type="text" class="search-bar" /><input />
 
-      <form class="search-form">
-        <label for="searchQuery" class="sr-only">Что ищем?</label>
-        <input
-          type="text"
-          class="form-control"
-          name="query"
-          placeholder="Search images..."
-          autocomplete="off"
-        />
-
-        <button type="submit" class="search-btn">Искать</button>
-      </form>
-    </div>
-
-    <!-- название населённого пункта, название страны
-текущая дата: день недели в коротком формате, число, месяц. Например: Сб 26 октября
-время: часы, минуты, секунды. Например: 17:23:12. Обновляется раз в секунду
-температура в текущий промежуток времени
-описание погоды (summary), ощущаемая температура (apparent temperature), скорость ветра(м/с), влажность(%)
-иконка погоды -->
-
-    <div class="weather-today">
-      <h2>Town-name</h2>
-      <h3>Country-name</h3>
-      <div>Current-date</div>
-      <div>temperature</div>
-      <div>weather-summary</div>
-      <div>apparent temperature</div>
-      <div>wind speed</div>
-      <div>humidity, weather-icon</div>
-    </div>
-
-    <!-- Прогноз погоды на три дня
-день недели в полном формате
-средняя температура
-иконка погоды
--->
-
-    <div class="weather-in-three-days">
-      <div>current-day</div>
-      <div>average-temp, weather-icon</div>
-    </div>
-
-    <!-- координаты населённого пункта: долгота и широта (в градусах и минутах)
-карта местности -->
-    <div class="geolocation">
-      <div>map</div>
-    </div>
+        <button type="button">
+          <span class="material-icons"> keyboard_return </span>
+        </button>
+      </div>
+      <div class="weather">
+        <h2 class="city">Weather in Denver</h2>
+        <div class="temperature">38°C</div>
+        <img src="" alt="weather picture" class="icon" />
+        <div class="description">description</div>
+        <div class="humidity">humidity</div>
+        <div class="wind">wind</div>
+        <div class="js-card-container"></div>
+      </div>
+    </div> -->
+    <!-- <div class="js-card-container"></div> -->
   </body>
 </html>

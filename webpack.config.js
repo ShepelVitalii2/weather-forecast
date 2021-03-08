@@ -1,6 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
+
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+// const HandlebarsPlugin = require('handlebars-webpack-plugin');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -23,14 +26,15 @@ module.exports = {
     // применять изменения только при горячей перезагрузке
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin(),
+    // new HandlebarsPlugin(),
   ],
   module: {
     rules: [
       // JavaScript
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
         exclude: /node_modules/,
-        use: ['babel-loader'],
       },
       // изображения
       {
@@ -47,6 +51,8 @@ module.exports = {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
+      //handlebar
+      { test: /\.hbs$/, loader: 'handlebars-loader' },
     ],
   },
   mode: 'development',
