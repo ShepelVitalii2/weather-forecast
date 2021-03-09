@@ -8,7 +8,14 @@
     </div>
     <div class="weather">
 
-        <h2 class="city">{{city}} {{country}}</h2>
+        <h2 class="city">{{location.region}} {{location.country}}</h2>
+        <h1 class="temperature">{{current.temp_c}}</h1>
+        <img src="{{current.condition.icon}}" alt="weather picture" class="icon" />
+        <div class="date">{{currentDate.time}}</div>
+        <div class="description">description</div>
+        <div class="humidity">humidity</div>
+        <div class="wind">wind</div>
+        <div class="js-card-container"></div>
 
     </div>
 </div>

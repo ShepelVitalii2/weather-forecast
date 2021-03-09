@@ -1,3 +1,5 @@
+import currentTime from '../js/currentDate';
+
 const IP_TOKEN = '9386691d4def67';
 const CURRENT_WEATHER_TOKEN = '399ec48b854042bfac8135036210503';
 const WEATHER_CLIMACELL_KEY = '5IzfMZ06ljmfAW51wSDZDVyAi5PGjpWG';
@@ -5,6 +7,7 @@ const WEATHER_CLIMACELL_KEY = '5IzfMZ06ljmfAW51wSDZDVyAi5PGjpWG';
 const BG_PICTURE_ACCESS_KEY = 'ZjIEjPhNuTau-_xR4i1T6wDwPla3W2lrDFQ8jycJAQo';
 const BG_PICTURE_SECRET_KEY = 'HNaOrcu8uFP7YrkuWeImUaZ-M86Af4yuc1UuOtR58tE';
 const BG_PICTURE_API = 'https://api.unsplash.com/';
+const time = currentTime();
 
 // айпи текущего пользователя, геолокация
 const ipCountry = () =>
@@ -51,17 +54,19 @@ function randomBgPicture() {
 // }
 
 const fetchCountryAndWeather = () => {
-  Promise.all([ipCountry, currentIpWeather]).then(function () {
+  Promise.all([ipCountry, currentIpWeather, time]).then(function () {
     // const firstAPI = data[0];
     // console.log(firstAPI);
 
     // const secondAPI = data[1];
     // console.log(secondAPI);
     const combinedData = { ...ipCountry, ...currentIpWeather };
+    // combinedData.currentDate = time;
     console.log(combinedData);
   });
 };
 
+console.log(fetchCountryAndWeather());
 // fetchCountryAndWeather();
 
 export default {

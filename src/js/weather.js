@@ -3,6 +3,7 @@ import debounce from 'lodash.debounce';
 
 import weatherCard from '../templates/weatherCard.hbs';
 import infoCard from '../templates/infoCard.hbs';
+// import currentDate from '../js/currentDate'
 // import renderWeatherCard from '../templates/renderWeatherCard.hbs';
 
 // const onInput = document.querySelector('body');
@@ -26,11 +27,11 @@ function onFetchError() {
   alert('Дела...');
 }
 
-function renderCountry(city, country) {
-  main.innerHTML = weatherCard(city, country);
+function renderCountry(city, country, time) {
+  main.innerHTML = weatherCard(city, country, time);
 }
 
-fetchCountry.ipCountry().then(renderCountry).catch(onFetchError);
+fetchCountry.currentIpWeather().then(renderCountry).catch(onFetchError);
 
 fetchCountry.currentIpWeather();
 
