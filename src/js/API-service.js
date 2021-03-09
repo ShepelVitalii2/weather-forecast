@@ -6,17 +6,13 @@ const BG_PICTURE_ACCESS_KEY = 'ZjIEjPhNuTau-_xR4i1T6wDwPla3W2lrDFQ8jycJAQo';
 const BG_PICTURE_SECRET_KEY = 'HNaOrcu8uFP7YrkuWeImUaZ-M86Af4yuc1UuOtR58tE';
 const BG_PICTURE_API = 'https://api.unsplash.com/';
 
-// var myTemplate = Handlebars.compile($('#weather').html());
-
 // айпи текущего пользователя, геолокация
 const ipCountry = () =>
   fetch(`https://ipinfo.io/json?token=${IP_TOKEN}`)
     .then(response => response.json())
-    // .then(jsonResponse => console.log(jsonResponse))
-    .then(function (data) {
+    .then(data => {
       console.log(data);
-      const posts = { posts: data };
-      '#weather'.append(myTemplate(posts));
+      return data;
     });
 
 // текущая сводка погоды текущего пользователя
@@ -25,7 +21,10 @@ function currentIpWeather() {
     `https://api.weatherapi.com/v1/forecast.json?key=${CURRENT_WEATHER_TOKEN}&q=${ipCountry}`,
   )
     .then(response => response.json())
-    .then(jsonResponse => console.log(jsonResponse.current));
+    .then(data => {
+      console.log(data);
+      return data;
+    });
 }
 
 // прогноз погоды на 3 дня, заменить на страну приходящую из поиска
@@ -51,9 +50,24 @@ function randomBgPicture() {
 //   });
 // }
 
+const fetchCountryAndWeather = () => {
+  Promise.all([ipCountry, currentIpWeather]).then(function () {
+    // const firstAPI = data[0];
+    // console.log(firstAPI);
+
+    // const secondAPI = data[1];
+    // console.log(secondAPI);
+    const combinedData = { ...ipCountry, ...currentIpWeather };
+    console.log(combinedData);
+  });
+};
+
+// fetchCountryAndWeather();
+
 export default {
   ipCountry,
   currentIpWeather,
   currentIpWeatherForThreeDays,
   randomBgPicture,
+  fetchCountryAndWeather,
 };

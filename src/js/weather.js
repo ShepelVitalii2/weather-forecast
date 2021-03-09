@@ -2,41 +2,50 @@ import fetchCountry from './API-service';
 import debounce from 'lodash.debounce';
 
 import weatherCard from '../templates/weatherCard.hbs';
-import renderWeatherCard from '../templates/renderWeatherCard.hbs';
+import infoCard from '../templates/infoCard.hbs';
+// import renderWeatherCard from '../templates/renderWeatherCard.hbs';
 
-const onInput = document.querySelector('body');
-// const cardContainer = document.createElement('div');
-// cardContainer.classList.add('card-container');
-// const cardContainer = document.querySelector('.js-card-container');
+// const onInput = document.querySelector('body');
 
-onInput.addEventListener('input', debounce(onInputFill, 500));
+// onInput.addEventListener('input', debounce(onInputFill, 500));
 // cardContainer.addEventListener('input', debounce(onInputFill, 500));
 const main = document.querySelector('body');
 
 function onInputFill(e) {
   e.preventDefault();
 
-  const form = e.target;
-  const searchQuery = onInput;
+  // const form = e.target;
+  // const searchQuery = onInput;
 
-  fetchCountry
-    .currentIpWeather(searchQuery)
-    .then(renderCountry)
-    .catch(onFetchError);
+  fetchCountry.ipCountry().then(renderCountry).catch(onFetchError);
 
   // .finally(() => form.reset);
 }
 
 function onFetchError() {
-  alert(
-    'Я извиняюсь, но что то пошло не так, как хотелось тому, кто очень хотел, что бы сдесь все работало...',
-  );
+  alert('Дела...');
 }
 
-function renderCountry(country) {
-  cardContainer.innerHTML = renderWeatherCard(country);
+function renderCountry(city, country) {
+  main.innerHTML = weatherCard(city, country);
 }
 
-onInput.innerHTML = weatherCard();
+fetchCountry.ipCountry().then(renderCountry).catch(onFetchError);
 
-console.log(fetchCountry.ipCountry());
+fetchCountry.currentIpWeather();
+
+// const weatherContainer = document.querySelector('.weather');
+// console.log(weatherContainer);
+
+// function renderWeather(temp_c) {
+//   main.innerHTML = infoCard(temp_c);
+// }
+
+// fetchCountry.currentIpWeather().then(renderWeather).catch(onFetchError);
+
+// const render = fetchCountry.ipCountry().then(renderCountry);
+// console.log(render);
+
+// onInput.innerHTML = weatherCard();
+
+// console.log(fetchCountry.ipCountry());
