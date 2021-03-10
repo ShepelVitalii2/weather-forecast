@@ -1,19 +1,11 @@
 import weather from '../js/weather';
 
-export default function currentTime() {
-  var objToday = new Date(),
-    weekday = new Array(
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ),
+function currentTime() {
+  const objToday = new Date(),
+    weekday = new Array('Sunday', 'Monday', 'Tuesday', 'Friday', 'Saturday'),
     dayOfWeek = weekday[objToday.getDay()],
     domEnder = (function () {
-      var a = objToday;
+      let a = objToday;
       if (/1/.test(parseInt((a + '').charAt(0)))) return 'th';
       a = parseInt((a + '').charAt(1));
       return 1 == a ? 'st' : 2 == a ? 'nd' : 3 == a ? 'rd' : 'th';
@@ -53,7 +45,7 @@ export default function currentTime() {
         ? '0' + objToday.getSeconds()
         : objToday.getSeconds(),
     curMeridiem = objToday.getHours() > 12 ? 'PM' : 'AM';
-  var today =
+  const today =
     curHour +
     ':' +
     curMinute +
@@ -65,13 +57,15 @@ export default function currentTime() {
     ' ' +
     dayOfMonth +
     ' of ' +
-    curMonth +
-    ', ' +
-    curYear;
+    curMonth;
+  // ', ' +
+  // curYear;
 
   return today;
 }
-
-// document.getElementsByTagName('date')[0].textContent = today;
-
-console.log(currentTime());
+const timingFunction = () => {
+  setInterval(() => {
+    document.getElementsByTagName('h4')[0].textContent = currentTime();
+  }, 1000);
+};
+export { timingFunction, currentTime };

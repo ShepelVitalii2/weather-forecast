@@ -108,3 +108,13 @@ img {
 ::placeholder {
   color: white;
 }
+
+.temperature-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .temperature-block:nth-last-child(
+  margin-left
+) */

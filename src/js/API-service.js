@@ -1,4 +1,4 @@
-import currentTime from '../js/currentDate';
+import { currentTime } from '../js/currentDate';
 
 const IP_TOKEN = '9386691d4def67';
 const CURRENT_WEATHER_TOKEN = '399ec48b854042bfac8135036210503';
@@ -11,29 +11,25 @@ const time = currentTime();
 
 // айпи текущего пользователя, геолокация
 const ipCountry = () =>
-  fetch(`https://ipinfo.io/json?token=${IP_TOKEN}`)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      return data;
-    });
+  fetch(`https://ipinfo.io/json?token=${IP_TOKEN}`).then(response =>
+    response.json(),
+  );
+
+//текущий город пользователя
+const currentCity = ipCountry().then(data => {
+  return data.city;
+});
 
 // текущая сводка погоды текущего пользователя
-function currentIpWeather() {
-  return fetch(
-    `https://api.weatherapi.com/v1/forecast.json?key=${CURRENT_WEATHER_TOKEN}&q=${ipCountry}`,
-  )
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      return data;
-    });
-}
+const currentIpWeather = () =>
+  fetch(
+    `https://api.weatherapi.com/v1/forecast.json?key=${CURRENT_WEATHER_TOKEN}&q=${currentCity}`,
+  ).then(response => response.json());
 
 // прогноз погоды на 3 дня, заменить на страну приходящую из поиска
 function currentIpWeatherForThreeDays() {
   return fetch(
-    `https://api.weatherapi.com/v1/forecast.json?key=${CURRENT_WEATHER_TOKEN}&q=${ipCountry}&days=3`,
+    `https://api.weatherapi.com/v1/forecast.json?key=${CURRENT_WEATHER_TOKEN}&q=${currentCity}&days=3`,
   )
     .then(response => response.json())
     .then(jsonResponse => console.log(jsonResponse.current));
@@ -47,27 +43,16 @@ function randomBgPicture() {
     .then(jsonResponse => console.log(jsonResponse.id));
 }
 
-// function fetchCountry(searchQuery) {
-//   return fetch(`${BASE_URL}/name/${searchQuery}`).then(response => {
-//     return response.json();
-//   });
-// }
-
 const fetchCountryAndWeather = () => {
-  Promise.all([ipCountry, currentIpWeather, time]).then(function () {
-    // const firstAPI = data[0];
-    // console.log(firstAPI);
+  return Promise.all([ipCountry(), currentIpWeather()]).then(data => {
+    const firstAPI = data[0];
+    const secondAPI = data[1];
 
-    // const secondAPI = data[1];
-    // console.log(secondAPI);
-    const combinedData = { ...ipCountry, ...currentIpWeather };
-    // combinedData.currentDate = time;
+    const combinedData = { ...firstAPI, ...secondAPI };
     console.log(combinedData);
+    return combinedData;
   });
 };
-
-console.log(fetchCountryAndWeather());
-// fetchCountryAndWeather();
 
 export default {
   ipCountry,

@@ -1,8 +1,10 @@
 import fetchCountry from './API-service';
 import debounce from 'lodash.debounce';
+import currentDate from './currentDate';
 
 import weatherCard from '../templates/weatherCard.hbs';
-import infoCard from '../templates/infoCard.hbs';
+import { timingFunction } from './currentDate';
+// import infoCard from '../templates/infoCard.hbs';
 // import currentDate from '../js/currentDate'
 // import renderWeatherCard from '../templates/renderWeatherCard.hbs';
 
@@ -12,28 +14,33 @@ import infoCard from '../templates/infoCard.hbs';
 // cardContainer.addEventListener('input', debounce(onInputFill, 500));
 const main = document.querySelector('body');
 
-function onInputFill(e) {
-  e.preventDefault();
+// function onInputFill(e) {
+//   e.preventDefault();
 
-  // const form = e.target;
-  // const searchQuery = onInput;
+//   // const form = e.target;
+//   // const searchQuery = onInput;
 
-  fetchCountry.ipCountry().then(renderCountry).catch(onFetchError);
+//   fetchCountry.ipCountry().then(renderCountry).catch(onFetchError);
 
-  // .finally(() => form.reset);
-}
+//   // .finally(() => form.reset);
+// }
 
 function onFetchError() {
   alert('Дела...');
 }
 
-function renderCountry(city, country, time) {
-  main.innerHTML = weatherCard(city, country, time);
+function renderCountry(city, country) {
+  main.innerHTML = weatherCard(city, country);
 }
 
-fetchCountry.currentIpWeather().then(renderCountry).catch(onFetchError);
+fetchCountry.fetchCountryAndWeather().then(renderCountry).catch(onFetchError);
 
-fetchCountry.currentIpWeather();
+if (renderCountry) {
+  timingFunction();
+}
+
+// console.log(fetchCountry.fetchCountryAndWeather());
+// fetchCountry.fetchCountryAndWeather();
 
 // const weatherContainer = document.querySelector('.weather');
 // console.log(weatherContainer);
@@ -50,3 +57,5 @@ fetchCountry.currentIpWeather();
 // onInput.innerHTML = weatherCard();
 
 // console.log(fetchCountry.ipCountry());
+
+// currentTime;
