@@ -8,8 +8,6 @@ import { timingFunction } from './currentDate';
 // import currentDate from '../js/currentDate'
 // import renderWeatherCard from '../templates/renderWeatherCard.hbs';
 
-// const onInput = document.querySelector('body');
-
 // onInput.addEventListener('input', debounce(onInputFill, 500));
 // cardContainer.addEventListener('input', debounce(onInputFill, 500));
 const main = document.querySelector('body');
@@ -31,31 +29,49 @@ function onFetchError() {
 
 function renderCountry(city, country) {
   main.innerHTML = weatherCard(city, country);
+
+  // onInput.addEventListener('click', debounce(onInputFill, 500));
+
+  // .finally(() => form.reset());
 }
 
-fetchCountry.fetchCountryAndWeather().then(renderCountry).catch(onFetchError);
+// function fetchCountry(searchQuery) {
+//   return fetch(`${BASE_URL}/name/${searchQuery}`).then(response => {
+//     return response.json();
+//   });
+// }
+// }
+
+fetchCountry.currentIpWeather().then(renderCountry).catch(onFetchError);
+
+fetchCountry.currentIpWeather().then(renderNewCountry).catch(onFetchError);
+
+function renderNewCountry() {
+  const onInput = document.querySelector('.search-bar');
+  const button = document.querySelector('.button');
+  button.addEventListener('click', onInputFill);
+
+  function onInputFill(e) {
+    e.preventDefault;
+    let searchQuery;
+
+    // const form = e.target;
+    searchQuery = onInput.value;
+    console.log(searchQuery);
+
+    fetchCountry
+      .searchQueryWeather(searchQuery)
+      .then(renderCountry)
+      .catch(onFetchError);
+  }
+}
 
 if (renderCountry) {
   timingFunction();
 }
 
-// console.log(fetchCountry.fetchCountryAndWeather());
-// fetchCountry.fetchCountryAndWeather();
-
-// const weatherContainer = document.querySelector('.weather');
-// console.log(weatherContainer);
-
 // function renderWeather(temp_c) {
 //   main.innerHTML = infoCard(temp_c);
 // }
 
-// fetchCountry.currentIpWeather().then(renderWeather).catch(onFetchError);
-
-// const render = fetchCountry.ipCountry().then(renderCountry);
-// console.log(render);
-
 // onInput.innerHTML = weatherCard();
-
-// console.log(fetchCountry.ipCountry());
-
-// currentTime;

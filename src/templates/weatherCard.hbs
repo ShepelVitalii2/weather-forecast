@@ -8,16 +8,16 @@
     </div>
     <div class="weather">
 
-        <h2 class="city">{{region}} {{country}}</h2>
+        <h2 class="city">{{location.name}} {{location.country}}</h2>
+        <h4 class="date">{{time}}</h4>
         <div class="temperature-block">
-            <h1 class="temperature">{{current.temp_c}}</h1>
+            <h1 class="temperature">{{current.temp_c}}c°</h1>
             <img src="{{current.condition.icon}}" alt="weather picture" class="icon" />
         </div>
-
-        <h4 class="date">{{time}}</h4>
-
-        <div class="humidity">Humidity: {{current.humidity}}</div>
-        <div class="wind">{{current.wind}}</div>
+        <div class="summary">Its a {{current.condition.text}} today</div>
+        <div class="apparent-temperature">Apparent temperature is: {{current.feelslike_c}} C°</div>
+        <div class="wind">Wind speed: {{current.wind_kph}}</div>
+        <div class="humidity">Humidity: {{current.humidity}} %</div>
         <div class="js-card-container"></div>
 
     </div>
