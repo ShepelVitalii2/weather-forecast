@@ -2,7 +2,15 @@ import weather from '../js/weather';
 
 function currentTime() {
   const objToday = new Date(),
-    weekday = new Array('Sunday', 'Monday', 'Tuesday', 'Friday', 'Saturday'),
+    weekday = new Array(
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ),
     dayOfWeek = weekday[objToday.getDay()],
     domEnder = (function () {
       let a = objToday;

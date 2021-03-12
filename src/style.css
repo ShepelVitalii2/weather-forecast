@@ -15,9 +15,6 @@ h1 {
 body {
   background-image: url('https://source.unsplash.com/1600x900/?weather,water');
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
   margin: 0;
 
@@ -31,6 +28,12 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+.weather-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .form__input {
@@ -67,13 +70,14 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 700px;
 }
 
 .button {
-  margin: 0.5em;
+  margin-right: 15px;
   border-radius: 7px;
   height: 42px;
-  width: 80px;
+  width: 100px;
   border: none;
   outline: none;
   cursor: pointer;
@@ -85,6 +89,14 @@ img {
   transition-delay: 0;
 }
 
+.search-button {
+  margin-left: 15px;
+}
+
+/* .button:not(:last-child) {
+  margin-left: 15px;
+} */
+
 .button:hover {
   color: rgb(46, 41, 34);
 
@@ -92,6 +104,8 @@ img {
 }
 
 .search-bar {
+  display: block;
+
   border: none;
   outline: none;
   padding: 10px;
@@ -118,3 +132,14 @@ img {
 /* .temperature-block:nth-last-child(
   margin-left
 ) */
+
+.control-block {
+  display: flex;
+  padding: 25px;
+  border-radius: 30px;
+  max-width: 100%;
+
+  margin: 1em;
+  background: rgba(58, 58, 58, 0.7);
+  color: white;
+}
