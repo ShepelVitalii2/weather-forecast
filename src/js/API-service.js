@@ -1,3 +1,5 @@
+const regeneratorRuntime = require('regenerator-runtime');
+
 const IP_TOKEN = '9386691d4def67';
 const CURRENT_WEATHER_TOKEN = '399ec48b854042bfac8135036210503';
 const WEATHER_CLIMACELL_KEY = '5IzfMZ06ljmfAW51wSDZDVyAi5PGjpWG';
@@ -51,56 +53,43 @@ const currentIpWeatherForThreeDays = () => {
   return result;
 };
 
-const test = () => {
-  // айпи текущего пользователя, геолокация
-  let result = fetch(`https://ipinfo.io/json?token=${IP_TOKEN}`)
-    .then(response => response.json())
-    .then(data => {
-      let ipCountry = data.ip;
-      return fetch(
-        `https://api.weatherapi.com/v1/forecast.json?key=${CURRENT_WEATHER_TOKEN}&q=${ipCountry}&days=3`,
-      );
-    })
-    .then(response => response.json())
-    .then(r => console.log(r))
-    .catch(error => {
-      console.log('Request failed', error);
-    });
-
-  return result;
-};
-test();
-
 function randomBgPicture() {
   return fetch(
     `${BG_PICTURE_API}photos/random?orientation=landscape&per_page=1&query=nature&client_id=${BG_PICTURE_ACCESS_KEY}`,
-  )
-    .then(response => response.json())
-    .then(jsonResponse => console.log(jsonResponse.id));
+  ).then(response => response.json());
 }
 
-// const fetchCountryAndWeather = () => {
-//   return Promise.all([currentIpWeather(), currentIpWeatherForThreeDays()]).then(
-//     data => {
-//       const oneDayWeather = data[0];
-//       // console.log(firstAPI);
+//Не трогать, магия!
+const getMapPosition = async () => {
+  // айпи текущего пользователя, геолокация
+  let result = await fetch(
+    `https://ipinfo.io/json?token=${IP_TOKEN}`,
+  ).then(response => response.json());
+  let nextResult = await fetch(
+    `https://api.weatherapi.com/v1/forecast.json?key=${CURRENT_WEATHER_TOKEN}&q=${result.ip}`,
+  ).then(r => r.json());
 
-//       const threeDaysWeather = data[1];
-
-//       const combinedData = { oneDayWeather, threeDaysWeather };
-//       console.log(combinedData);
-//       return combinedData;
-//     },
-//   );
-// };
-
-// fetchCountryAndWeather();
+  //Получение координат для карты
+  let mapF = () => {
+    const map = new mapboxgl.Map({
+      container: 'map', // container id
+      style: 'mapbox://styles/mapbox/streets-v11', // style URL
+      center: [nextResult.location.lon, nextResult.location.lat], // starting position [lng, lat]
+      zoom: 9, // starting zoom
+    });
+    return map;
+  };
+  (async () => {
+    mapF();
+  })();
+};
 
 export default {
   currentIpWeather,
   currentIpWeatherForThreeDays,
   randomBgPicture,
   searchQueryWeather,
+  getMapPosition,
   // fetchCountryAndWeather,
   // fetchCountryAndWeather,
 };

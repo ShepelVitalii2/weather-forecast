@@ -67,19 +67,21 @@ function loadFunction() {
   }
 }
 
-function renderCountry(city, country) {
+function renderCountry(city, country, long, lat) {
   main.innerHTML = weatherCard(city, country);
-  main.appendChild(map());
+  const weatherBlock = document.querySelector('.weather-block');
+  weatherBlock.appendChild(fetchCountry.getMapPosition(long, lat));
+  // console.log(fetchCountry.getMapPosition().then(map));
 }
 
-function renderCountryF(temp) {
+function renderCountryF(temp, long, lat) {
   main.innerHTML = temperature(temp);
-  main.appendChild(map());
+  const weatherBlock = document.querySelector('.weather-block');
+  weatherBlock.appendChild(fetchCountry.getMapPosition().then(map(long, lat)));
 }
 
 if (renderCountry) {
   timingFunction();
-  // fetchCountry.map();
 }
 if (renderCountryF) {
   timingFunction();
