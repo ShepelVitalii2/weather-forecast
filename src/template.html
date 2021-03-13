@@ -2,6 +2,10 @@
 <html lang="en">
   <head>
     <title>Weather-forecast</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
 
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Icons"
@@ -13,27 +17,14 @@
       href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,700&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
   </head>
 
   <body>
-    <!-- <div class="card">
-      <div type="search">
-        <input type="text" class="search-bar" /><input />
-
-        <button type="button">
-          <span class="material-icons"> keyboard_return </span>
-        </button>
-      </div>
-      <div class="weather">
-        <h2 class="city">Weather in Denver</h2>
-        <div class="temperature">38°C</div>
-        <img src="" alt="weather picture" class="icon" />
-        <div class="description">description</div>
-        <div class="humidity">humidity</div>
-        <div class="wind">wind</div>
-        <div class="js-card-container"></div>
-      </div>
-    </div> -->
-    <!-- <div class="js-card-container"></div> -->
+    <div id="map"></div>
   </body>
 </html>

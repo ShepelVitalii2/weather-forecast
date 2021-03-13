@@ -1,8 +1,11 @@
 import fetchCountry from './API-service';
 // import debounce from 'lodash.debounce';
 // import currentDate from './currentDate';
+import map from './map';
+// console.log(map());
 
 import weatherCard from '../templates/weatherCard.hbs';
+import temperature from '../templates/renderTemperature.hbs';
 import { timingFunction } from './currentDate';
 
 const main = document.querySelector('body');
@@ -17,9 +20,35 @@ function onFetchError() {
   alert('Дела...');
 }
 
-function loadFunction(e) {
+function loadFunction() {
   const onInput = document.querySelector('.search-bar');
   const button = document.querySelector('.search-button');
+  const onImgBtnClick = document.querySelector('.picture-button');
+  const onChangeTempClick = document.querySelector('.temperature-button');
+
+  // const temperatureInfo = document.querySelector('.apparent-temperature');
+  // const temperatureCard = document.querySelector('#temperature');
+  // fetchCountry.map();
+  onImgBtnClick.addEventListener('click', () => {
+    // location.href = location.href;
+    main.style.backgroundImage =
+      "url('https://source.unsplash.com/1600x900/?weather,water')";
+  });
+  onChangeTempClick.addEventListener('click', () => {
+    main.classList.toggle('active');
+
+    if (main.classList.contains('active')) {
+      fetchCountry
+        .currentIpWeatherForThreeDays()
+        .then(renderCountryF)
+        .catch(onFetchError);
+    } else {
+      fetchCountry
+        .currentIpWeatherForThreeDays()
+        .then(renderCountry)
+        .catch(onFetchError);
+    }
+  });
 
   button.addEventListener('click', onInputFill);
   // button.removeEventListener;
@@ -40,8 +69,18 @@ function loadFunction(e) {
 
 function renderCountry(city, country) {
   main.innerHTML = weatherCard(city, country);
+  main.appendChild(map());
+}
+
+function renderCountryF(temp) {
+  main.innerHTML = temperature(temp);
+  main.appendChild(map());
 }
 
 if (renderCountry) {
+  timingFunction();
+  // fetchCountry.map();
+}
+if (renderCountryF) {
   timingFunction();
 }
