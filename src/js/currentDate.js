@@ -74,6 +74,6 @@ function currentTime() {
 const timingFunction = () => {
   setInterval(() => {
     document.getElementsByTagName('h4')[0].textContent = currentTime();
-  }, 1000);
+  }, 500);
 };
 export { timingFunction, currentTime };

@@ -133,9 +133,6 @@ img {
   margin-left: 15px;
 }
 
-/* .button:not(:last-child) {
-  margin-left: 15px;
-} */
 
 .button:hover {
   color: rgb(46, 41, 34);
@@ -169,9 +166,6 @@ img {
   justify-content: center;
 }
 
-/* .temperature-block:nth-last-child(
-  margin-left
-) */
 
 .control-block {
   justify-content: center;
@@ -189,4 +183,10 @@ img {
     rgba(58, 58, 58, 0.7) 50%,
     rgba(58, 58, 58, 0.1)
   );
+}
+
+.data{
+  display: block;
+  width: 400px;
+  height: 200px;
 }

@@ -1,88 +1,135 @@
 import fetchCountry from './API-service';
 // import debounce from 'lodash.debounce';
 // import currentDate from './currentDate';
-import map from './map';
-// console.log(map());
+// import map from './map';
 
 import weatherCard from '../templates/weatherCard.hbs';
-import temperature from '../templates/renderTemperature.hbs';
+import weatherCardF from '../templates/weatherCardF.hbs';
+import weatherCardSQ from '../templates/weatherCardSQ.hbs';
+import weatherCardRus from '../templates/weatherCardRus.hbs';
+import weatherCardRusF from '../templates/weatherCardRusF.hbs';
 import { timingFunction } from './currentDate';
 
-const main = document.querySelector('body');
-main.addEventListener('DOMSubtreeModified', loadFunction);
+const body = document.querySelector('body');
+const main = document.querySelector('.weather-container');
+const onInput = document.querySelector('.search-bar');
+const searchButton = document.querySelector('.search-button');
+const onImgBtnClick = document.querySelector('.picture-button');
+const onChangeTempClick = document.querySelector('.temperature-button');
+const onChangeLangClick = document.querySelector('.language-button');
 
-fetchCountry
-  .currentIpWeatherForThreeDays()
-  .then(renderCountry)
-  .catch(onFetchError);
+let setLanguage = null;
+
+fetchAndRenderCountry();
 
 function onFetchError() {
   alert('Дела...');
 }
+onImgBtnClick.addEventListener('click', () => {
+  // location.href = location.href;
+  body.style.backgroundImage =
+    "url('https://source.unsplash.com/1600x900/?weather,water')";
+});
 
-function loadFunction() {
-  const onInput = document.querySelector('.search-bar');
-  const button = document.querySelector('.search-button');
-  const onImgBtnClick = document.querySelector('.picture-button');
-  const onChangeTempClick = document.querySelector('.temperature-button');
+onChangeTempClick.addEventListener('click', () => {
+  onChangeTempClick.classList.toggle('temperature');
 
-  // const temperatureInfo = document.querySelector('.apparent-temperature');
-  // const temperatureCard = document.querySelector('#temperature');
-  // fetchCountry.map();
-  onImgBtnClick.addEventListener('click', () => {
-    // location.href = location.href;
-    main.style.backgroundImage =
-      "url('https://source.unsplash.com/1600x900/?weather,water')";
-  });
-  onChangeTempClick.addEventListener('click', () => {
-    main.classList.toggle('active');
+  // if (onChangeTempClick.classList.contains('temperature')) {
+  //   fetchAndRenderCountry();
+  // } else {
+  //   fetchAndRenderCountryF();
+  // }
 
-    if (main.classList.contains('active')) {
-      fetchCountry
-        .currentIpWeatherForThreeDays()
-        .then(renderCountryF)
-        .catch(onFetchError);
-    } else {
-      fetchCountry
-        .currentIpWeatherForThreeDays()
-        .then(renderCountry)
-        .catch(onFetchError);
-    }
-  });
-
-  button.addEventListener('click', onInputFill);
-  // button.removeEventListener;
-
-  function onInputFill(e) {
-    e.preventDefault;
-
-    let searchQuery;
-
-    searchQuery = onInput.value;
-
-    fetchCountry
-      .searchQueryWeather(searchQuery)
-      .then(renderCountry)
-      .catch(onFetchError);
+  if (
+    onChangeTempClick.classList.contains('temperature') &&
+    setLanguage !== true
+  ) {
+    fetchAndRenderCountry();
   }
+  if (
+    !onChangeTempClick.classList.contains('temperature') &&
+    setLanguage !== true
+  ) {
+    fetchAndRenderCountryF();
+  }
+  if (
+    onChangeTempClick.classList.contains('temperature') &&
+    setLanguage === true
+  ) {
+    fetchAndRenderCountryRus();
+  }
+  if (
+    !onChangeTempClick.classList.contains('temperature') &&
+    setLanguage === true
+  ) {
+    fetchAndRenderCountryRusF();
+  }
+});
+
+searchButton.addEventListener('click', e => {
+  e.preventDefault();
+
+  let searchQuery;
+
+  searchQuery = onInput.value;
+
+  fetchCountry
+    .searchQueryGeolocation(searchQuery)
+    .then(renderCountrySQ)
+    .catch(onFetchError);
+  // .finally(onInput.reset());
+});
+
+onChangeLangClick.addEventListener('click', e => {
+  onChangeLangClick.classList.toggle('language');
+  setLanguage = true;
+  console.log(setLanguage);
+
+  if (!onChangeLangClick.classList.contains('language')) {
+    fetchAndRenderCountry();
+    setLanguage = false;
+  } else {
+    fetchAndRenderCountryRus();
+  }
+});
+
+function fetchAndRenderCountry() {
+  fetchCountry
+    .currentIpWeatherForThreeDays()
+    .then(renderCountry)
+    .catch(onFetchError);
 }
 
-function renderCountry(city, country, long, lat) {
+function fetchAndRenderCountryF() {
+  fetchCountry
+    .currentIpWeatherForThreeDays()
+    .then(renderCountryF)
+    .catch(onFetchError);
+}
+
+function fetchAndRenderCountryRus() {
+  fetchCountry.currentGeolocation().then(renderCountryRus).catch(onFetchError);
+}
+
+function fetchAndRenderCountryRusF() {
+  fetchCountry.currentGeolocation().then(renderCountryRusF).catch(onFetchError);
+}
+
+function renderCountry(city, country) {
   main.innerHTML = weatherCard(city, country);
-  const weatherBlock = document.querySelector('.weather-block');
-  weatherBlock.appendChild(fetchCountry.getMapPosition(long, lat));
-  // console.log(fetchCountry.getMapPosition().then(map));
 }
 
-function renderCountryF(temp, long, lat) {
-  main.innerHTML = temperature(temp);
-  const weatherBlock = document.querySelector('.weather-block');
-  weatherBlock.appendChild(fetchCountry.getMapPosition().then(map(long, lat)));
+function renderCountryF(temp) {
+  main.innerHTML = weatherCardF(temp);
+}
+function renderCountrySQ(city, country) {
+  main.innerHTML = weatherCardSQ(city, country);
+}
+function renderCountryRus(city, country) {
+  main.innerHTML = weatherCardRus(city, country);
+}
+function renderCountryRusF(city, country) {
+  main.innerHTML = weatherCardRusF(city, country);
 }
 
-if (renderCountry) {
-  timingFunction();
-}
-if (renderCountryF) {
-  timingFunction();
-}
+timingFunction();

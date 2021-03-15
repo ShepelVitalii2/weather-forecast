@@ -7,7 +7,7 @@
             <h2 class="city">{{queryResultGeolocation.results.0.formatted}}</h2>
             <h4 class="date">{{time}}</h4>
             <div class="temperature-block">
-                <h1 class="temperature">{{queryResultWather.forecast.forecastday.0.day.avgtemp_c}}c°</h1>
+                <h1 class="temperature">{{queryResultWather.forecast.forecastday.0.day.avgtemp_f}}F°</h1>
                 <img src="{{queryResultWather.forecast.forecastday.0.day.condition.icon}}" alt="weather picture"
                     class="icon" />
             </div>
@@ -16,7 +16,7 @@
             </div> --}}
             <div id="temperature">
                 <div class="apparent-temperature" id='temp'>По температуре у нас:
-                    {{queryResultWather.forecast.forecastday.0.day.avgtemp_c}} C°</div>
+                    {{queryResultWather.forecast.forecastday.0.day.avgtemp_f}} F°</div>
             </div>
 
             <div class="wind">Ветер в харю: {{queryResultWather.forecast.forecastday.0.day.maxwind_kph}} км</div>
@@ -34,7 +34,7 @@
             <h2 class="city">Погодка на завтра</h2>
 
             <div class="temperature-block">
-                <h1 class="temperature">{{queryResultWather.forecast.forecastday.1.day.avgtemp_c}}c°</h1>
+                <h1 class="temperature">{{queryResultWather.forecast.forecastday.1.day.avgtemp_f}}F°</h1>
                 <img src="{{queryResultWather.forecast.forecastday.1.day.condition.icon}}" alt="weather picture"
                     class="icon" />
             </div>
@@ -43,7 +43,7 @@
             </div> --}}
             <div id="temperature">
                 <div class="apparent-temperature" id='temp'>По температуре у нас:
-                    {{queryResultWather.forecast.forecastday.1.day.avgtemp_c}} C°</div>
+                    {{queryResultWather.forecast.forecastday.1.day.avgtemp_f}} F°</div>
             </div>
 
             <div class="wind">Ветер в харю: {{queryResultWather.forecast.forecastday.1.day.maxwind_kph}} км</div>
@@ -58,7 +58,7 @@
             <h2 class="city">Стратегический прогноз на послезавтра</h2>
 
             <div class="temperature-block">
-                <h1 class="temperature">{{queryResultWather.forecast.forecastday.2.day.avgtemp_c}}c°</h1>
+                <h1 class="temperature">{{queryResultWather.forecast.forecastday.2.day.avgtemp_f}}F°</h1>
                 <img src="{{queryResultWather.forecast.forecastday.2.day.condition.icon}}" alt="weather picture"
                     class="icon" />
             </div>
@@ -67,7 +67,7 @@
             </div> --}}
             <div id="temperature">
                 <div class="apparent-temperature" id='temp'>По температуре у нас:
-                    {{queryResultWather.forecast.forecastday.2.day.avgtemp_c}} C°</div>
+                    {{queryResultWather.forecast.forecastday.2.day.avgtemp_f}} F°</div>
             </div>
 
             <div class="wind">Ветер в харю: {{queryResultWather.forecast.forecastday.2.day.maxwind_kph}} км</div>

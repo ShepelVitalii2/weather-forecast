@@ -24,5 +24,27 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
   </head>
 
-  <body></body>
+  <body>
+    <div class="control-block">
+      <button type="button" class="button picture-button">
+        <span class="material-icons"> panorama </span>
+      </button>
+      <button type="button" class="button language-button">
+        <span class="material-icons"> language </span>
+      </button>
+      <button type="button" class="button temperature-button">
+        <span class="material-icons"> chalet </span>
+      </button>
+
+      <div type="search" class="card-search">
+        <input type="text" class="search-bar" placeholder="Search" />
+
+        <button type="button" class="button search-button">
+          <span class="material-icons">keyboard_return</span>
+        </button>
+      </div>
+    </div>
+    <div class="weather-container"></div>
+    <!-- <div id="map"></div> -->
+  </body>
 </html>
