@@ -1,7 +1,6 @@
 import fetchCountry from './API-service';
-// import debounce from 'lodash.debounce';
-// import currentDate from './currentDate';
-// import map from './map';
+
+import refs from './refs';
 
 import weatherCard from '../templates/weatherCard.hbs';
 import weatherCardF from '../templates/weatherCardF.hbs';
@@ -10,63 +9,81 @@ import weatherCardRus from '../templates/weatherCardRus.hbs';
 import weatherCardRusF from '../templates/weatherCardRusF.hbs';
 import { timingFunction } from './currentDate';
 
-const body = document.querySelector('body');
-const main = document.querySelector('.weather-container');
-const onInput = document.querySelector('.search-bar');
-const searchButton = document.querySelector('.search-button');
-const onImgBtnClick = document.querySelector('.picture-button');
-const onChangeTempClick = document.querySelector('.temperature-button');
-const onChangeLangClick = document.querySelector('.language-button');
+// const body = document.querySelector('body');
+// const main = document.querySelector('.weather-container');
+// const onInput = document.querySelector('.search-bar');
+// const searchButton = document.querySelector('.search-button');
+// const onImgBtnClick = document.querySelector('.picture-button');
+// const onChangeTempClick = document.querySelector('.temperature-button');
+// const onChangeLangClick = document.querySelector('.language-button');
 
 let setLanguage = null;
 
-fetchAndRenderCountry();
-
-function onFetchError() {
-  alert('Дела...');
-}
-onImgBtnClick.addEventListener('click', () => {
-  // location.href = location.href;
-  body.style.backgroundImage =
-    "url('https://source.unsplash.com/1600x900/?weather,water')";
-});
-
-onChangeTempClick.addEventListener('click', () => {
-  onChangeTempClick.classList.toggle('temperature');
-
-  // if (onChangeTempClick.classList.contains('temperature')) {
-  //   fetchAndRenderCountry();
-  // } else {
-  //   fetchAndRenderCountryF();
-  // }
-
+window.addEventListener('DOMContentLoaded', () => {
   if (
-    onChangeTempClick.classList.contains('temperature') &&
-    setLanguage !== true
+    localStorage.getItem('settings') === 'englishC' ||
+    localStorage.getItem('settings') === null
   ) {
     fetchAndRenderCountry();
   }
-  if (
-    !onChangeTempClick.classList.contains('temperature') &&
-    setLanguage !== true
-  ) {
+  if (localStorage.getItem('settings') === 'englishF') {
     fetchAndRenderCountryF();
   }
-  if (
-    onChangeTempClick.classList.contains('temperature') &&
-    setLanguage === true
-  ) {
+  if (localStorage.getItem('settings') === 'russianC') {
     fetchAndRenderCountryRus();
   }
-  if (
-    !onChangeTempClick.classList.contains('temperature') &&
-    setLanguage === true
-  ) {
+  if (localStorage.getItem('settings') === 'russianF') {
     fetchAndRenderCountryRusF();
   }
 });
 
-searchButton.addEventListener('click', e => {
+function onFetchError() {
+  alert('Дела...');
+}
+refs.onImgBtnClick.addEventListener('click', () => {
+  // location.href = location.href;
+  refs.body.style.backgroundImage =
+    "url('https://source.unsplash.com/1600x900/?weather,water')";
+});
+
+refs.onChangeTempClick.addEventListener('click', () => {
+  refs.onChangeTempClick.classList.toggle('temperature');
+
+  if (
+    refs.onChangeTempClick.classList.contains('temperature') &&
+    setLanguage !== true
+  ) {
+    fetchAndRenderCountry();
+    localStorage.clear();
+    localStorage.setItem('settings', 'englishC');
+  }
+  if (
+    !refs.onChangeTempClick.classList.contains('temperature') &&
+    setLanguage !== true
+  ) {
+    fetchAndRenderCountryF();
+    localStorage.clear();
+    localStorage.setItem('settings', 'englishF');
+  }
+  if (
+    refs.onChangeTempClick.classList.contains('temperature') &&
+    setLanguage === true
+  ) {
+    fetchAndRenderCountryRus();
+    localStorage.clear();
+    localStorage.setItem('settings', 'russianC');
+  }
+  if (
+    !refs.onChangeTempClick.classList.contains('temperature') &&
+    setLanguage === true
+  ) {
+    fetchAndRenderCountryRusF();
+    localStorage.clear();
+    localStorage.setItem('settings', 'russianF');
+  }
+});
+
+refs.searchButton.addEventListener('click', e => {
   e.preventDefault();
 
   let searchQuery;
@@ -80,15 +97,20 @@ searchButton.addEventListener('click', e => {
   // .finally(onInput.reset());
 });
 
-onChangeLangClick.addEventListener('click', e => {
-  onChangeLangClick.classList.toggle('language');
+refs.onChangeLangClick.addEventListener('click', () => {
+  refs.onChangeLangClick.classList.toggle('language');
   setLanguage = true;
   console.log(setLanguage);
 
-  if (!onChangeLangClick.classList.contains('language')) {
+  if (!refs.onChangeLangClick.classList.contains('language')) {
+    localStorage.clear();
+    localStorage.setItem('settings', 'englishC');
     fetchAndRenderCountry();
+
     setLanguage = false;
   } else {
+    localStorage.clear();
+    localStorage.setItem('settings', 'russianC');
     fetchAndRenderCountryRus();
   }
 });
@@ -116,20 +138,20 @@ function fetchAndRenderCountryRusF() {
 }
 
 function renderCountry(city, country) {
-  main.innerHTML = weatherCard(city, country);
+  refs.main.innerHTML = weatherCard(city, country);
 }
 
 function renderCountryF(temp) {
-  main.innerHTML = weatherCardF(temp);
+  refs.main.innerHTML = weatherCardF(temp);
 }
 function renderCountrySQ(city, country) {
-  main.innerHTML = weatherCardSQ(city, country);
+  refs.main.innerHTML = weatherCardSQ(city, country);
 }
 function renderCountryRus(city, country) {
-  main.innerHTML = weatherCardRus(city, country);
+  refs.main.innerHTML = weatherCardRus(city, country);
 }
 function renderCountryRusF(city, country) {
-  main.innerHTML = weatherCardRusF(city, country);
+  refs.main.innerHTML = weatherCardRusF(city, country);
 }
 
 timingFunction();
