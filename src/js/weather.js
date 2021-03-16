@@ -7,17 +7,16 @@ import weatherCardF from '../templates/weatherCardF.hbs';
 import weatherCardSQ from '../templates/weatherCardSQ.hbs';
 import weatherCardRus from '../templates/weatherCardRus.hbs';
 import weatherCardRusF from '../templates/weatherCardRusF.hbs';
-import { timingFunction } from './currentDate';
-
-// const body = document.querySelector('body');
-// const main = document.querySelector('.weather-container');
-// const onInput = document.querySelector('.search-bar');
-// const searchButton = document.querySelector('.search-button');
-// const onImgBtnClick = document.querySelector('.picture-button');
-// const onChangeTempClick = document.querySelector('.temperature-button');
-// const onChangeLangClick = document.querySelector('.language-button');
+import weatherCardSQRus from '../templates/weatherCardSQRus.hbs';
+import weatherCardSQRusF from '../templates/weatherCardSQRusF.hbs';
+// import { timingFunction } from './currentDate';
+// import { timingFunctionRus } from './currentDateRus';
+import { currentTime, currentTimeRus } from './currentDate';
 
 let setLanguage = null;
+let searchQueryPosition = null;
+let timingFunctionState = null;
+let searchQuery = '';
 
 window.addEventListener('DOMContentLoaded', () => {
   if (
@@ -77,18 +76,43 @@ refs.onChangeTempClick.addEventListener('click', () => {
     !refs.onChangeTempClick.classList.contains('temperature') &&
     setLanguage === true
   ) {
-    fetchAndRenderCountryRusF();
     localStorage.clear();
+    fetchAndRenderCountryRusF();
     localStorage.setItem('settings', 'russianF');
   }
+  // if (
+  //   !refs.onChangeTempClick.classList.contains('temperature') &&
+  //   refs.onChangeLangClick.classList.contains('language') &&
+  //   setLanguage === true &&
+  //   searchQuery !== ''
+  // ) {
+  //   fetchCountry
+  //     .searchQueryGeolocation(searchQuery)
+  //     .then(renderCountrySQRusF)
+  //     .catch(onFetchError);
+  // } else if (
+  //   !refs.onChangeTempClick.classList.contains('temperature') &&
+  //   !refs.onChangeLangClick.classList.contains('language') &&
+  //   setLanguage === true &&
+  //   searchQuery !== ''
+  // ) {
+  //   fetchCountry
+  //     .searchQueryGeolocation(searchQuery)
+  //     .then(renderCountrySQ)
+  //     .catch(onFetchError);
+  // }
+
+  // searchQueryPosition = !searchQueryPosition;
 });
 
 refs.searchButton.addEventListener('click', e => {
+  searchQueryPosition = true;
+  setLanguage = true;
+  // console.log(searchQueryPosition);
   e.preventDefault();
+  localStorage.clear();
 
-  let searchQuery;
-
-  searchQuery = onInput.value;
+  searchQuery = refs.onInput.value;
 
   fetchCountry
     .searchQueryGeolocation(searchQuery)
@@ -100,25 +124,57 @@ refs.searchButton.addEventListener('click', e => {
 refs.onChangeLangClick.addEventListener('click', () => {
   refs.onChangeLangClick.classList.toggle('language');
   setLanguage = true;
-  console.log(setLanguage);
+  // let firstRender = null;
+  // console.log(setLanguage);
 
-  if (!refs.onChangeLangClick.classList.contains('language')) {
+  if (
+    !refs.onChangeLangClick.classList.contains('language') &&
+    searchQuery === ''
+  ) {
     localStorage.clear();
     localStorage.setItem('settings', 'englishC');
     fetchAndRenderCountry();
+    // console.log('123');
 
     setLanguage = false;
-  } else {
+  } else if (
+    refs.onChangeLangClick.classList.contains('language') &&
+    searchQuery === ''
+    // searchQueryPosition === false
+  ) {
     localStorage.clear();
     localStorage.setItem('settings', 'russianC');
     fetchAndRenderCountryRus();
+  } else if (
+    !refs.onChangeTempClick.classList.contains('temperature') &&
+    refs.onChangeLangClick.classList.contains('language') &&
+    setLanguage === true &&
+    searchQuery !== ''
+  ) {
+    fetchCountry
+      .searchQueryGeolocation(searchQuery)
+      .then(renderCountrySQRusF)
+      .catch(onFetchError);
+  } else if (
+    !refs.onChangeTempClick.classList.contains('temperature') &&
+    !refs.onChangeLangClick.classList.contains('language') &&
+    setLanguage === true &&
+    searchQuery !== ''
+  ) {
+    fetchCountry
+      .searchQueryGeolocation(searchQuery)
+      .then(renderCountrySQ)
+      .catch(onFetchError);
   }
+
+  searchQueryPosition = !searchQueryPosition;
 });
 
 function fetchAndRenderCountry() {
   fetchCountry
     .currentIpWeatherForThreeDays()
     .then(renderCountry)
+
     .catch(onFetchError);
 }
 
@@ -126,19 +182,30 @@ function fetchAndRenderCountryF() {
   fetchCountry
     .currentIpWeatherForThreeDays()
     .then(renderCountryF)
+
     .catch(onFetchError);
 }
 
 function fetchAndRenderCountryRus() {
-  fetchCountry.currentGeolocation().then(renderCountryRus).catch(onFetchError);
+  fetchCountry
+    .currentGeolocation()
+    .then(renderCountryRus)
+
+    .catch(onFetchError);
 }
 
 function fetchAndRenderCountryRusF() {
-  fetchCountry.currentGeolocation().then(renderCountryRusF).catch(onFetchError);
+  fetchCountry
+    .currentGeolocation()
+    .then(renderCountryRusF)
+
+    .catch(onFetchError);
 }
 
 function renderCountry(city, country) {
   refs.main.innerHTML = weatherCard(city, country);
+  timingFunctionState = true;
+  timingFunction();
 }
 
 function renderCountryF(temp) {
@@ -147,11 +214,30 @@ function renderCountryF(temp) {
 function renderCountrySQ(city, country) {
   refs.main.innerHTML = weatherCardSQ(city, country);
 }
+
+function renderCountrySQRus(city, country) {
+  refs.main.innerHTML = weatherCardSQRus(city, country);
+}
+function renderCountrySQRusF(city, country) {
+  refs.main.innerHTML = weatherCardSQRusF(city, country);
+}
 function renderCountryRus(city, country) {
   refs.main.innerHTML = weatherCardRus(city, country);
+  timingFunctionState = false;
+  timingFunction();
 }
 function renderCountryRusF(city, country) {
   refs.main.innerHTML = weatherCardRusF(city, country);
 }
 
-timingFunction();
+function timingFunction() {
+  clearInterval(test);
+  const test = setInterval(() => {
+    if (timingFunctionState) {
+      document.getElementsByTagName('h4')[0].textContent = currentTime();
+    }
+    if (!timingFunctionState) {
+      document.getElementsByTagName('h4')[0].textContent = currentTimeRus();
+    }
+  }, 500);
+}

@@ -1,27 +1,32 @@
+<!--блок контроля-->
+
+
+
+
 <div class="weather-block">
     <!--Погода на 1 день-->
     <div class="card">
 
         <div class="weather">
 
-            <h2 class="city">{{queryResultGeolocation.results.0.formatted}}</h2>
+            <h2 class="city">
+                {{queryResultGeolocation.results.0.components.city}}{{queryResultGeolocation.results.0.components.country}}
+            </h2>
             <h4 class="date">{{time}}</h4>
             <div class="temperature-block">
                 <h1 class="temperature">{{queryResultWather.forecast.forecastday.0.day.avgtemp_c}}c°</h1>
                 <img src="{{queryResultWather.forecast.forecastday.0.day.condition.icon}}" alt="weather picture"
                     class="icon" />
             </div>
-            {{!-- <div class="summary">Че там походу {{queryResultWather.forecast.forecastday.0.day.condition.text}}
-                сегодня
-            </div> --}}
+            <div class="summary">Its {{queryResultWather.forecast.forecastday.0.day.condition.text}} today</div>
             <div id="temperature">
-                <div class="apparent-temperature" id='temp'>По температуре у нас:
+                <div class="apparent-temperature" id='temp'>Apparent temperature is:
                     {{queryResultWather.forecast.forecastday.0.day.avgtemp_c}} C°</div>
             </div>
 
-            <div class="wind">Ветер в харю: {{queryResultWather.forecast.forecastday.0.day.maxwind_kph}} км</div>
-            <div class="humidity">Влажность: {{queryResultWather.forecast.forecastday.0.day.avghumidity}} %</div>
-
+            <div class="wind">Wind speed: {{queryResultWather.forecast.forecastday.0.day.maxwind_kph}}</div>
+            <div class="humidity">Humidity: {{queryResultWather.forecast.forecastday.0.day.avghumidity}} %</div>
+            <div class="js-card-container"></div>
 
         </div>
     </div>
@@ -38,17 +43,12 @@
                 <img src="{{queryResultWather.forecast.forecastday.1.day.condition.icon}}" alt="weather picture"
                     class="icon" />
             </div>
-            {{!-- <div class="summary">Че там походу {{queryResultWather.forecast.forecastday.1.day.condition.text}}
-                сегодня
-            </div> --}}
-            <div id="temperature">
-                <div class="apparent-temperature" id='temp'>По температуре у нас:
-                    {{queryResultWather.forecast.forecastday.1.day.avgtemp_c}} C°</div>
-            </div>
-
-            <div class="wind">Ветер в харю: {{queryResultWather.forecast.forecastday.1.day.maxwind_kph}} км</div>
+            <div class="summary">Its a {{queryResultWather.forecast.forecastday.1.day.condition.text}} tommorow</div>
+            <div class="apparent-temperature">По температуре у нас:
+                {{queryResultWather.forecast.forecastday.1.day.avgtemp_c}} C°</div>
+            <div class="wind">Ветер в харю: {{queryResultWather.forecast.forecastday.1.day.maxwind_kph}} km</div>
             <div class="humidity">Влажность: {{queryResultWather.forecast.forecastday.1.day.avghumidity}} %</div>
-
+            <div class="js-card-container"></div>
 
         </div>
 
@@ -62,22 +62,16 @@
                 <img src="{{queryResultWather.forecast.forecastday.2.day.condition.icon}}" alt="weather picture"
                     class="icon" />
             </div>
-            {{!-- <div class="summary">Че там походу {{queryResultWather.forecast.forecastday.2.day.condition.text}}
-                сегодня
-            </div> --}}
-            <div id="temperature">
-                <div class="apparent-temperature" id='temp'>По температуре у нас:
-                    {{queryResultWather.forecast.forecastday.2.day.avgtemp_c}} C°</div>
-            </div>
 
-            <div class="wind">Ветер в харю: {{queryResultWather.forecast.forecastday.2.day.maxwind_kph}} км</div>
+            <div class="apparent-temperature">По температуре у нас:
+                {{queryResultWather.forecast.forecastday.2.day.avgtemp_c}} C°</div>
+            <div class="wind">Ветер в харю: {{queryResultWather.forecast.forecastday.2.day.maxwind_kph}} km</div>
             <div class="humidity">Влажность: {{queryResultWather.forecast.forecastday.2.day.avghumidity}} %</div>
-
+            <div class="js-card-container"></div>
 
         </div>
     </div>
     <div class="card">
-        <h2>Ваше местонахождение:</h2>
         <div id="map"></div>
     </div>
 </div>

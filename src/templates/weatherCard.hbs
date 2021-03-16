@@ -10,7 +10,7 @@
         <div class="weather">
 
             <h2 class="city">{{location.name}} {{location.country}}</h2>
-            <h4 class="date">{{time}}</h4>
+            <h4 class="date"></h4>
             <div class="temperature-block">
                 <h1 class="temperature">{{forecast.forecastday.0.day.avgtemp_c}}c°</h1>
                 <img src="{{forecast.forecastday.0.day.condition.icon}}" alt="weather picture" class="icon" />
@@ -67,6 +67,7 @@
         </div>
     </div>
     <div class="card">
+        <h2>You are here:</h2>
         <div id="map"></div>
     </div>
 </div>

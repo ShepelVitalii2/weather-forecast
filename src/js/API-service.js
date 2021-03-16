@@ -49,7 +49,7 @@ const searchQueryGeolocation = async searchQuery => {
   ).then(response => response.json());
 
   const result = { queryResultGeolocation, queryResultWather };
-
+  console.log(result);
   return result;
 };
 const currentGeolocation = async () => {
@@ -66,7 +66,7 @@ const currentGeolocation = async () => {
   ).then(response => response.json());
 
   const result = { queryResultGeolocation, queryResultWather };
-  console.log(result);
+  // console.log(result);
   return result;
 };
 // currentGeolocation();
