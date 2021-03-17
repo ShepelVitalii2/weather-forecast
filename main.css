@@ -1,0 +1,237 @@
+:root {
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h4{
+  margin: 0;  
+}
+#map {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 390px;
+  height: 400px;
+  margin: 30px auto;
+  border: 8px solid rgba(58, 58, 58, 0.7);
+  background: #bfe2ff;
+  border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+  box-shadow: 15px 15px 50px rgba(0, 0, 0, 0.32);
+  animation: anim-map 13s infinite;
+  font-size: 24px;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+@keyframes anim-map {
+  0% {
+    border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+    box-shadow: 15px 15px 50px rgba(0, 0, 0, 0.2);
+  }
+  25% {
+    border-radius: 58% 42% 75% 25%/76% 46% 54% 24%;
+  }
+  50% {
+    border-radius: 50% 50% 33% 67%/55% 27% 73% 45%;
+    box-shadow: -10px -5px 50px rgba(0, 0, 0, 0.2);
+  }
+  75% {
+    border-radius: 33% 67% 58% 42%/63% 68% 32% 37%;
+  }
+}
+
+h1 {
+  margin: 0;
+}
+
+body {
+  background-image: url('https://source.unsplash.com/random');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+
+  margin: 0;
+
+  font-size: 120%;
+  font-family: 'Lato', sans-serif;
+  transition: color 150ms var(--timing-function),
+    background-color 150ms var(--timing-function);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.weather-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .city{
+  width: 200px;
+  height: 60px;
+} */
+
+.sub-weather{
+    /* display: block; */
+  /* margin-left: auto;
+  margin-right: auto; */
+  margin-top: 30px;
+  padding: 15px;
+  width: auto;
+  height: 220px;
+  text-align: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(202, 191, 191, 0.15);
+  border-radius: 25px;
+
+  background-color: #333342;
+   opacity: 0.8;
+}
+
+.add-info{
+  font-size: 16px;
+  color: #bfe2ff;
+ 
+}
+
+.love{
+    
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgb(204, 126, 126);
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(202, 191, 191, 0.15);
+  border-radius: 25px;
+
+  background-color: #333342;
+}
+
+.form__input {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 360px;
+  height: 50px;
+  text-align: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(202, 191, 191, 0.15);
+  border-radius: 25px;
+
+  background-color: #e3e3e7;
+}
+
+.material-icons {
+  width: 1.5em;
+}
+
+.card {
+  padding: 25px;
+  border-radius: 30px;
+  width: 100%;
+  max-width: 420px;
+  height: 580px;
+  margin: 1em;
+  background: rgba(58, 58, 58, 0.7);
+  color: white;
+}
+
+.card-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 700px;
+}
+
+.button {
+  margin-right: 15px;
+  border-radius: 7px;
+  height: 42px;
+  width: 100px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: rgb(161, 148, 148, 0.5);
+  color: white;
+
+  transition-duration: 300ms;
+  transition-timing-function: linear;
+  transition-delay: 0;
+}
+
+.search-button {
+  margin-left: 15px;
+}
+
+
+.button:hover {
+  color: rgb(46, 41, 34);
+
+  background-color: rgb(187, 185, 182);
+}
+
+.search-bar {
+  display: block;
+
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 7px;
+  width: calc(100% - 75px);
+  color: white;
+  background: rgb(161, 148, 148, 0.5);
+
+  font-family: inherit;
+  /* font-weight: bold; */
+  font-size: 18px;
+}
+
+::placeholder {
+  color: white;
+}
+
+.temperature-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.control-block {
+  justify-content: center;
+  display: flex;
+  padding: 25px;
+  border-radius: 30px;
+  max-width: 100%;
+
+  margin: 1em;
+  /* background: rgba(58, 58, 58, 0.7); */
+  color: white;
+  background-image: linear-gradient(
+    to right,
+    rgba(58, 58, 58, 0.3),
+    rgba(58, 58, 58, 0.7) 50%,
+    rgba(58, 58, 58, 0.1)
+  );
+}
+
+.date{
+  display: block;
+  width: 200px;
+  height: 50px;
+}
+
