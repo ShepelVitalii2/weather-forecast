@@ -5,12 +5,12 @@ import refs from './refs';
 import weatherCard from '../templates/weatherCard.hbs';
 import weatherCardF from '../templates/weatherCardF.hbs';
 import weatherCardSQ from '../templates/weatherCardSQ.hbs';
+import weatherCardSQF from '../templates/weatherCardSQF.hbs';
 import weatherCardRus from '../templates/weatherCardRus.hbs';
 import weatherCardRusF from '../templates/weatherCardRusF.hbs';
 import weatherCardSQRus from '../templates/weatherCardSQRus.hbs';
 import weatherCardSQRusF from '../templates/weatherCardSQRusF.hbs';
-// import { timingFunction } from './currentDate';
-// import { timingFunctionRus } from './currentDateRus';
+
 import { currentTime, currentTimeRus } from './currentDate';
 
 let setLanguage = null;
@@ -55,54 +55,72 @@ refs.onChangeTempClick.addEventListener('click', () => {
     fetchAndRenderCountry();
     localStorage.clear();
     localStorage.setItem('settings', 'englishC');
-  }
-  if (
+  } else if (
     !refs.onChangeTempClick.classList.contains('temperature') &&
     setLanguage !== true
   ) {
     fetchAndRenderCountryF();
     localStorage.clear();
     localStorage.setItem('settings', 'englishF');
-  }
-  if (
+  } else if (
     refs.onChangeTempClick.classList.contains('temperature') &&
-    setLanguage === true
+    setLanguage === true &&
+    searchQuery === ''
   ) {
     fetchAndRenderCountryRus();
     localStorage.clear();
     localStorage.setItem('settings', 'russianC');
-  }
-  if (
+  } else if (
     !refs.onChangeTempClick.classList.contains('temperature') &&
-    setLanguage === true
+    setLanguage === true &&
+    searchQuery === ''
   ) {
     localStorage.clear();
     fetchAndRenderCountryRusF();
     localStorage.setItem('settings', 'russianF');
+  } else if (
+    refs.onChangeTempClick.classList.contains('temperature') &&
+    !refs.onChangeLangClick.classList.contains('language') &&
+    setLanguage === true &&
+    searchQuery !== ''
+  ) {
+    fetchCountry
+      .searchQueryGeolocation(searchQuery)
+      .then(renderCountrySQF)
+      .catch(onFetchError);
+  } else if (
+    !refs.onChangeTempClick.classList.contains('temperature') &&
+    !refs.onChangeLangClick.classList.contains('language') &&
+    searchQuery !== ''
+  ) {
+    fetchCountry
+      .searchQueryGeolocation(searchQuery)
+      .then(renderCountrySQ)
+      .catch(onFetchError);
+  } else if (
+    refs.onChangeTempClick.classList.contains('temperature') &&
+    refs.onChangeLangClick.classList.contains('language') &&
+    setLanguage === true &&
+    searchQuery !== ''
+  ) {
+    fetchCountry
+      .searchQueryGeolocation(searchQuery)
+      .then(renderCountrySQRusF)
+      .catch(onFetchError);
+    console.log('123');
+  } else if (
+    !refs.onChangeTempClick.classList.contains('temperature') &&
+    refs.onChangeLangClick.classList.contains('language') &&
+    setLanguage === true &&
+    searchQuery !== ''
+  ) {
+    fetchCountry
+      .searchQueryGeolocation(searchQuery)
+      .then(renderCountrySQRus)
+      .catch(onFetchError);
   }
-  // if (
-  //   !refs.onChangeTempClick.classList.contains('temperature') &&
-  //   refs.onChangeLangClick.classList.contains('language') &&
-  //   setLanguage === true &&
-  //   searchQuery !== ''
-  // ) {
-  //   fetchCountry
-  //     .searchQueryGeolocation(searchQuery)
-  //     .then(renderCountrySQRusF)
-  //     .catch(onFetchError);
-  // } else if (
-  //   !refs.onChangeTempClick.classList.contains('temperature') &&
-  //   !refs.onChangeLangClick.classList.contains('language') &&
-  //   setLanguage === true &&
-  //   searchQuery !== ''
-  // ) {
-  //   fetchCountry
-  //     .searchQueryGeolocation(searchQuery)
-  //     .then(renderCountrySQ)
-  //     .catch(onFetchError);
-  // }
 
-  // searchQueryPosition = !searchQueryPosition;
+  searchQueryPosition = !searchQueryPosition;
 });
 
 refs.searchButton.addEventListener('click', e => {
@@ -124,8 +142,6 @@ refs.searchButton.addEventListener('click', e => {
 refs.onChangeLangClick.addEventListener('click', () => {
   refs.onChangeLangClick.classList.toggle('language');
   setLanguage = true;
-  // let firstRender = null;
-  // console.log(setLanguage);
 
   if (
     !refs.onChangeLangClick.classList.contains('language') &&
@@ -134,13 +150,11 @@ refs.onChangeLangClick.addEventListener('click', () => {
     localStorage.clear();
     localStorage.setItem('settings', 'englishC');
     fetchAndRenderCountry();
-    // console.log('123');
 
     setLanguage = false;
   } else if (
     refs.onChangeLangClick.classList.contains('language') &&
     searchQuery === ''
-    // searchQueryPosition === false
   ) {
     localStorage.clear();
     localStorage.setItem('settings', 'russianC');
@@ -153,7 +167,7 @@ refs.onChangeLangClick.addEventListener('click', () => {
   ) {
     fetchCountry
       .searchQueryGeolocation(searchQuery)
-      .then(renderCountrySQRusF)
+      .then(renderCountrySQRus)
       .catch(onFetchError);
   } else if (
     !refs.onChangeTempClick.classList.contains('temperature') &&
@@ -213,6 +227,9 @@ function renderCountryF(temp) {
 }
 function renderCountrySQ(city, country) {
   refs.main.innerHTML = weatherCardSQ(city, country);
+}
+function renderCountrySQF(city, country) {
+  refs.main.innerHTML = weatherCardSQF(city, country);
 }
 
 function renderCountrySQRus(city, country) {

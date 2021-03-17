@@ -1,0 +1,77 @@
+<!--блок контроля-->
+
+
+
+
+<div class="weather-block">
+    <!--Погода на 1 день-->
+    <div class="card">
+
+        <div class="weather">
+
+            <h2 class="city">{{queryResultWather.location.name}},
+                {{queryResultWather.location.country}}</h2>
+            <h4 class="date">{{time}}</h4>
+            <div class="temperature-block">
+                <h1 class="temperature">{{queryResultWather.forecast.forecastday.0.day.avgtemp_f}}f°</h1>
+                <img src="{{queryResultWather.forecast.forecastday.0.day.condition.icon}}" alt="weather picture"
+                    class="icon" />
+            </div>
+            <div class="summary">Its {{queryResultWather.forecast.forecastday.0.day.condition.text}} today</div>
+            <div id="temperature">
+                <div class="apparent-temperature" id='temp'>Apparent temperature is:
+                    {{queryResultWather.forecast.forecastday.0.day.avgtemp_f}} f°</div>
+            </div>
+
+            <div class="wind">Wind speed: {{queryResultWather.forecast.forecastday.0.day.maxwind_kph}}</div>
+            <div class="humidity">Humidity: {{queryResultWather.forecast.forecastday.0.day.avghumidity}} %</div>
+            <div class="js-card-container"></div>
+
+        </div>
+    </div>
+
+    <!--Погода на 3 дня-->
+    <div class="card">
+
+        <div class="weather">
+
+            <h2 class="city">Weather for tomorrow</h2>
+
+            <div class="temperature-block">
+                <h1 class="temperature">{{queryResultWather.forecast.forecastday.1.day.avgtemp_f}}f°</h1>
+                <img src="{{queryResultWather.forecast.forecastday.1.day.condition.icon}}" alt="weather picture"
+                    class="icon" />
+            </div>
+            <div class="summary">Its a {{queryResultWather.forecast.forecastday.1.day.condition.text}} tommorow</div>
+            <div class="apparent-temperature">Apparent temperature is:
+                {{queryResultWather.forecast.forecastday.1.day.avgtemp_c}} C°</div>
+            <div class="wind">max wind speed: {{queryResultWather.forecast.forecastday.1.day.maxwind_kph}} km</div>
+            <div class="humidity">Humidity: {{queryResultWather.forecast.forecastday.1.day.avghumidity}} %</div>
+            <div class="js-card-container"></div>
+
+        </div>
+
+
+        <div class="weather">
+
+            <h2 class="city">Weather for the day after tommorow</h2>
+
+            <div class="temperature-block">
+                <h1 class="temperature">{{queryResultWather.forecast.forecastday.2.day.avgtemp_f}}f°</h1>
+                <img src="{{queryResultWather.forecast.forecastday.2.day.condition.icon}}" alt="weather picture"
+                    class="icon" />
+            </div>
+            <div class="summary">Will be {{queryResultWather.forecast.forecastday.2.day.condition.text}} after tommorow
+            </div>
+            <div class="apparent-temperature">Apparent temperature is:
+                {{queryResultWather.forecast.forecastday.2.day.avgtemp_f}} f°</div>
+            <div class="wind">Max wind speed: {{queryResultWather.forecast.forecastday.2.day.maxwind_kph}} km</div>
+            <div class="humidity">Humidity: {{queryResultWather.forecast.forecastday.2.day.avghumidity}} %</div>
+            <div class="js-card-container"></div>
+
+        </div>
+    </div>
+    <div class="card">
+        <div id="map"></div>
+    </div>
+</div>
