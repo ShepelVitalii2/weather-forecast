@@ -10,7 +10,8 @@
         <div class="weather">
 
             <h2 class="city">
-                {{queryResultGeolocation.results.0.components.city}}{{queryResultGeolocation.results.0.components.country}}
+                {{queryResultGeolocation.results.0.components.city}},
+                {{queryResultGeolocation.results.0.components.country}}
             </h2>
             <h4 class="date">{{time}}</h4>
             <div class="temperature-block">
@@ -18,16 +19,28 @@
                 <img src="{{queryResultWather.forecast.forecastday.0.day.condition.icon}}" alt="weather picture"
                     class="icon" />
             </div>
-            <div class="summary">Its {{queryResultWather.forecast.forecastday.0.day.condition.text}} today</div>
             <div id="temperature">
-                <div class="apparent-temperature" id='temp'>Apparent temperature is:
+                <div class="apparent-temperature" id='temp'>По температуре у нас:
                     {{queryResultWather.forecast.forecastday.0.day.avgtemp_c}} C°</div>
             </div>
 
-            <div class="wind">Wind speed: {{queryResultWather.forecast.forecastday.0.day.maxwind_kph}}</div>
-            <div class="humidity">Humidity: {{queryResultWather.forecast.forecastday.0.day.avghumidity}} %</div>
+            <div class="wind">Скорость ветра: {{queryResultWather.forecast.forecastday.0.day.maxwind_kph}}</div>
+            <div class="humidity">Влажность: {{queryResultWather.forecast.forecastday.0.day.avghumidity}} %</div>
             <div class="js-card-container"></div>
 
+        </div>
+        <div class="sub-weather">
+            <h4 class="add-info">Дополнительная информация :</h4>
+            <p class="add-info">Шанс того, что пойдет дождь :
+                {{queryResultWather.forecast.forecastday.1.day.daily_chance_of_rain}} %</p>
+            <p class="add-info">Шанс того, что пойдет снег :
+                {{queryResultWather.forecast.forecastday.1.day.daily_chance_of_snow}} %</p>
+            <p class="add-info">Рассвет наступит в : {{queryResultWather.forecast.forecastday.1.astro.sunrise}}</p>
+            <p class="add-info">Порадуемся закатом в : {{queryResultWather.forecast.forecastday.1.astro.sunset}}</p>
+            <div class="love">
+                <p class="add-info">
+                </p>
+            </div>
         </div>
     </div>
 
@@ -43,10 +56,9 @@
                 <img src="{{queryResultWather.forecast.forecastday.1.day.condition.icon}}" alt="weather picture"
                     class="icon" />
             </div>
-            <div class="summary">Its a {{queryResultWather.forecast.forecastday.1.day.condition.text}} tommorow</div>
             <div class="apparent-temperature">По температуре у нас:
                 {{queryResultWather.forecast.forecastday.1.day.avgtemp_c}} C°</div>
-            <div class="wind">Ветер в харю: {{queryResultWather.forecast.forecastday.1.day.maxwind_kph}} km</div>
+            <div class="wind">Скорость ветра: {{queryResultWather.forecast.forecastday.1.day.maxwind_kph}} km</div>
             <div class="humidity">Влажность: {{queryResultWather.forecast.forecastday.1.day.avghumidity}} %</div>
             <div class="js-card-container"></div>
 
@@ -65,7 +77,7 @@
 
             <div class="apparent-temperature">По температуре у нас:
                 {{queryResultWather.forecast.forecastday.2.day.avgtemp_c}} C°</div>
-            <div class="wind">Ветер в харю: {{queryResultWather.forecast.forecastday.2.day.maxwind_kph}} km</div>
+            <div class="wind">Скорость ветра: {{queryResultWather.forecast.forecastday.2.day.maxwind_kph}} km</div>
             <div class="humidity">Влажность: {{queryResultWather.forecast.forecastday.2.day.avghumidity}} %</div>
             <div class="js-card-container"></div>
 
@@ -74,4 +86,5 @@
     <div class="card">
         <div id="map"></div>
     </div>
+</div>
 </div>

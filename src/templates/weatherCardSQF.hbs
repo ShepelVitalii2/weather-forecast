@@ -17,7 +17,8 @@
                 <img src="{{queryResultWather.forecast.forecastday.0.day.condition.icon}}" alt="weather picture"
                     class="icon" />
             </div>
-            <div class="summary">Its {{queryResultWather.forecast.forecastday.0.day.condition.text}} today</div>
+            {{!-- <div class="summary">Its {{queryResultWather.forecast.forecastday.0.day.condition.text}} today</div>
+            --}}
             <div id="temperature">
                 <div class="apparent-temperature" id='temp'>Apparent temperature is:
                     {{queryResultWather.forecast.forecastday.0.day.avgtemp_f}} f°</div>
@@ -26,6 +27,20 @@
             <div class="wind">Wind speed: {{queryResultWather.forecast.forecastday.0.day.maxwind_kph}}</div>
             <div class="humidity">Humidity: {{queryResultWather.forecast.forecastday.0.day.avghumidity}} %</div>
             <div class="js-card-container"></div>
+
+        </div>
+        <div class="sub-weather">
+            <h4 class="add-info">Additional information:</h4>
+            <p class="add-info">Chance of rain : {{queryResultWather.forecast.forecastday.1.day.daily_chance_of_rain}} %
+            </p>
+            <p class="add-info">Chance of snow : {{queryResultWather.forecast.forecastday.1.day.daily_chance_of_snow}} %
+            </p>
+            <p class="add-info">Sunrise at : {{queryResultWather.forecast.forecastday.1.astro.sunrise}}</p>
+            <p class="add-info">Sunset at : {{queryResultWather.forecast.forecastday.1.astro.sunset}}</p>
+            <div class="love">
+                <p class="add-info">
+                </p>
+            </div>
 
         </div>
     </div>
@@ -42,7 +57,8 @@
                 <img src="{{queryResultWather.forecast.forecastday.1.day.condition.icon}}" alt="weather picture"
                     class="icon" />
             </div>
-            <div class="summary">Its a {{queryResultWather.forecast.forecastday.1.day.condition.text}} tommorow</div>
+            {{!-- <div class="summary">Its a {{queryResultWather.forecast.forecastday.1.day.condition.text}} tommorow
+            </div> --}}
             <div class="apparent-temperature">Apparent temperature is:
                 {{queryResultWather.forecast.forecastday.1.day.avgtemp_c}} C°</div>
             <div class="wind">max wind speed: {{queryResultWather.forecast.forecastday.1.day.maxwind_kph}} km</div>
@@ -70,6 +86,7 @@
             <div class="js-card-container"></div>
 
         </div>
+
     </div>
     <div class="card">
         <div id="map"></div>

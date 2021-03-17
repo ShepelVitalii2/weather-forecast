@@ -40,9 +40,8 @@ function onFetchError() {
   alert('Дела...');
 }
 refs.onImgBtnClick.addEventListener('click', () => {
-  // location.href = location.href;
-  refs.body.style.backgroundImage =
-    "url('https://source.unsplash.com/1600x900/?weather,water')";
+  location.href = location.href;
+  // refs.body.style.backgroundImage = "url('https://source.unsplash.com/random')";
 });
 
 refs.onChangeTempClick.addEventListener('click', () => {
@@ -169,12 +168,7 @@ refs.onChangeLangClick.addEventListener('click', () => {
       .searchQueryGeolocation(searchQuery)
       .then(renderCountrySQRus)
       .catch(onFetchError);
-  } else if (
-    !refs.onChangeTempClick.classList.contains('temperature') &&
-    !refs.onChangeLangClick.classList.contains('language') &&
-    setLanguage === true &&
-    searchQuery !== ''
-  ) {
+  } else if (setLanguage === true && searchQuery !== '') {
     fetchCountry
       .searchQueryGeolocation(searchQuery)
       .then(renderCountrySQ)
@@ -227,6 +221,8 @@ function renderCountryF(temp) {
 }
 function renderCountrySQ(city, country) {
   refs.main.innerHTML = weatherCardSQ(city, country);
+  timingFunctionState = true;
+  timingFunction();
 }
 function renderCountrySQF(city, country) {
   refs.main.innerHTML = weatherCardSQF(city, country);
@@ -234,6 +230,8 @@ function renderCountrySQF(city, country) {
 
 function renderCountrySQRus(city, country) {
   refs.main.innerHTML = weatherCardSQRus(city, country);
+  timingFunctionState = false;
+  timingFunction();
 }
 function renderCountrySQRusF(city, country) {
   refs.main.innerHTML = weatherCardSQRusF(city, country);
@@ -252,9 +250,19 @@ function timingFunction() {
   const test = setInterval(() => {
     if (timingFunctionState) {
       document.getElementsByTagName('h4')[0].textContent = currentTime();
+      document.getElementsByClassName(
+        'love',
+      )[0].textContent = `Chance to find your love at current time : ${
+        Math.floor(Math.random() * (100 - 10)) + 10
+      }%, look around!`;
     }
     if (!timingFunctionState) {
       document.getElementsByTagName('h4')[0].textContent = currentTimeRus();
+      document.getElementsByClassName(
+        'love',
+      )[0].textContent = `Шанс найти сейчас вторую половинку : ${
+        Math.floor(Math.random() * (100 - 40)) + 40
+      }%, оглянитесь!`;
     }
-  }, 500);
+  }, 1500);
 }

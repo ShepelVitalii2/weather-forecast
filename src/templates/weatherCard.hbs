@@ -9,13 +9,13 @@
 
         <div class="weather">
 
-            <h2 class="city">{{location.name}} {{location.country}}</h2>
+            <h2 class="city">{{location.name}}, {{location.country}}</h2>
             <h4 class="date"></h4>
             <div class="temperature-block">
                 <h1 class="temperature">{{forecast.forecastday.0.day.avgtemp_c}}c°</h1>
                 <img src="{{forecast.forecastday.0.day.condition.icon}}" alt="weather picture" class="icon" />
             </div>
-            <div class="summary">Its {{forecast.forecastday.0.day.condition.text}} today</div>
+            {{!-- <div class="summary">Its {{forecast.forecastday.0.day.condition.text}} today</div> --}}
             <div id="temperature">
                 <div class="apparent-temperature" id='temp'>Apparent temperature is:
                     {{forecast.forecastday.0.day.avgtemp_c}} C°</div>
@@ -24,6 +24,18 @@
             <div class="wind">Wind speed: {{forecast.forecastday.0.day.maxwind_kph}}</div>
             <div class="humidity">Humidity: {{forecast.forecastday.0.day.avghumidity}} %</div>
             <div class="js-card-container"></div>
+
+        </div>
+        <div class="sub-weather">
+            <h4 class="add-info">Additional information:</h4>
+            <p class="add-info">Chance of rain : {{forecast.forecastday.1.day.daily_chance_of_rain}} %</p>
+            <p class="add-info">Chance of snow : {{forecast.forecastday.1.day.daily_chance_of_snow}} %</p>
+            <p class="add-info">Sunrise at : {{forecast.forecastday.1.astro.sunrise}}</p>
+            <p class="add-info">Sunset at : {{forecast.forecastday.1.astro.sunset}}</p>
+            <div class="love">
+                <p class="add-info">
+                </p>
+            </div>
 
         </div>
     </div>
@@ -39,7 +51,7 @@
                 <h1 class="temperature">{{forecast.forecastday.1.day.avgtemp_c}}c°</h1>
                 <img src="{{forecast.forecastday.1.day.condition.icon}}" alt="weather picture" class="icon" />
             </div>
-            <div class="summary">Its a {{forecast.forecastday.1.day.condition.text}} tommorow</div>
+            {{!-- <div class="summary">Its a {{forecast.forecastday.1.day.condition.text}} tommorow</div> --}}
             <div class="apparent-temperature">Apparent temperature is:
                 {{forecast.forecastday.1.day.avgtemp_c}} C°</div>
             <div class="wind">max wind speed: {{forecast.forecastday.1.day.maxwind_kph}} km</div>
