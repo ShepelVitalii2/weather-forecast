@@ -73,8 +73,8 @@ refs.onChangeTempClick.addEventListener('click', () => {
     setLanguage === true &&
     searchQuery === ''
   ) {
-    localStorage.clear();
     fetchAndRenderCountryRusF();
+    localStorage.clear();
     localStorage.setItem('settings', 'russianF');
   } else if (
     refs.onChangeTempClick.classList.contains('temperature') &&
@@ -82,59 +82,47 @@ refs.onChangeTempClick.addEventListener('click', () => {
     setLanguage === true &&
     searchQuery !== ''
   ) {
-    fetchCountry
-      .searchQueryGeolocation(searchQuery)
-      .then(renderCountrySQF)
-      .catch(onFetchError);
+    fetchAndRenderCountrySQF();
+    localStorage.clear();
+    localStorage.setItem('settings', 'englishF');
   } else if (
     !refs.onChangeTempClick.classList.contains('temperature') &&
     !refs.onChangeLangClick.classList.contains('language') &&
     searchQuery !== ''
   ) {
-    fetchCountry
-      .searchQueryGeolocation(searchQuery)
-      .then(renderCountrySQ)
-      .catch(onFetchError);
+    fetchAndRenderCountrySQ();
+    localStorage.clear();
+    localStorage.setItem('settings', 'englishC');
   } else if (
     refs.onChangeTempClick.classList.contains('temperature') &&
     refs.onChangeLangClick.classList.contains('language') &&
     setLanguage === true &&
     searchQuery !== ''
   ) {
-    fetchCountry
-      .searchQueryGeolocation(searchQuery)
-      .then(renderCountrySQRusF)
-      .catch(onFetchError);
-    console.log('123');
+    fetchAndRenderCountrySQRusF(searchQuery);
+    localStorage.clear();
+    localStorage.setItem('settings', 'russianF');
   } else if (
     !refs.onChangeTempClick.classList.contains('temperature') &&
     refs.onChangeLangClick.classList.contains('language') &&
     setLanguage === true &&
     searchQuery !== ''
   ) {
-    fetchCountry
-      .searchQueryGeolocation(searchQuery)
-      .then(renderCountrySQRus)
-      .catch(onFetchError);
+    fetchAndRenderCountrySQRus(searchQuery);
+    localStorage.clear();
+    localStorage.setItem('settings', 'russianC');
   }
 
   searchQueryPosition = !searchQueryPosition;
 });
 
-refs.searchButton.addEventListener('click', e => {
+refs.searchButton.addEventListener('click', () => {
   searchQueryPosition = true;
   setLanguage = true;
-  // console.log(searchQueryPosition);
-  e.preventDefault();
-  localStorage.clear();
 
   searchQuery = refs.onInput.value;
 
-  fetchCountry
-    .searchQueryGeolocation(searchQuery)
-    .then(renderCountrySQ)
-    .catch(onFetchError);
-  // .finally(onInput.reset());
+  fetchAndRenderCountrySQ();
 });
 
 refs.onChangeLangClick.addEventListener('click', () => {
@@ -162,13 +150,18 @@ refs.onChangeLangClick.addEventListener('click', () => {
     setLanguage === true &&
     searchQuery !== ''
   ) {
-    fetchCountry;
-    fetchAndRenderCountrySQRus();
+    fetchAndRenderCountrySQRus(searchQuery);
+
+    localStorage.clear();
+    localStorage.setItem('settings', 'russianC');
   } else if (setLanguage === true && searchQuery !== '') {
-    fetchAndRenderCountrySQ();
+    fetchAndRenderCountrySQ(searchQuery);
+
+    localStorage.clear();
+    localStorage.setItem('settings', 'englishC');
   }
 
-  // searchQueryPosition = !searchQueryPosition;
+  searchQueryPosition = !searchQueryPosition;
 });
 
 function fetchAndRenderCountry() {
@@ -199,6 +192,13 @@ function fetchAndRenderCountrySQRus() {
     .then(renderCountrySQRus)
     .catch(onFetchError);
 }
+
+function fetchAndRenderCountrySQRusF(searchQuery) {
+  fetchCountry
+    .searchQueryGeolocation(searchQuery)
+    .then(renderCountrySQRusF)
+    .catch(onFetchError);
+}
 function fetchAndRenderCountrySQ() {
   fetchCountry
     .searchQueryGeolocation(searchQuery)
@@ -206,6 +206,12 @@ function fetchAndRenderCountrySQ() {
     .catch(onFetchError);
 }
 
+function fetchAndRenderCountrySQF() {
+  fetchCountry
+    .searchQueryGeolocation(searchQuery)
+    .then(renderCountrySQF)
+    .catch(onFetchError);
+}
 function renderCountry(city, country) {
   refs.main.innerHTML = weatherCard(city, country);
   timingFunctionState = true;
