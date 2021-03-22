@@ -41,7 +41,6 @@ function onFetchError() {
 }
 refs.onImgBtnClick.addEventListener('click', () => {
   location.href = location.href;
-  // refs.body.style.backgroundImage = "url('https://source.unsplash.com/random')";
 });
 
 refs.onChangeTempClick.addEventListener('click', () => {
@@ -149,7 +148,6 @@ refs.onChangeLangClick.addEventListener('click', () => {
     localStorage.clear();
     localStorage.setItem('settings', 'englishC');
     fetchAndRenderCountry();
-
     setLanguage = false;
   } else if (
     refs.onChangeLangClick.classList.contains('language') &&
@@ -164,25 +162,19 @@ refs.onChangeLangClick.addEventListener('click', () => {
     setLanguage === true &&
     searchQuery !== ''
   ) {
-    fetchCountry
-      .searchQueryGeolocation(searchQuery)
-      .then(renderCountrySQRus)
-      .catch(onFetchError);
+    fetchCountry;
+    fetchAndRenderCountrySQRus();
   } else if (setLanguage === true && searchQuery !== '') {
-    fetchCountry
-      .searchQueryGeolocation(searchQuery)
-      .then(renderCountrySQ)
-      .catch(onFetchError);
+    fetchAndRenderCountrySQ();
   }
 
-  searchQueryPosition = !searchQueryPosition;
+  // searchQueryPosition = !searchQueryPosition;
 });
 
 function fetchAndRenderCountry() {
   fetchCountry
     .currentIpWeatherForThreeDays()
     .then(renderCountry)
-
     .catch(onFetchError);
 }
 
@@ -190,23 +182,27 @@ function fetchAndRenderCountryF() {
   fetchCountry
     .currentIpWeatherForThreeDays()
     .then(renderCountryF)
-
     .catch(onFetchError);
 }
 
 function fetchAndRenderCountryRus() {
-  fetchCountry
-    .currentGeolocation()
-    .then(renderCountryRus)
-
-    .catch(onFetchError);
+  fetchCountry.currentGeolocation().then(renderCountryRus).catch(onFetchError);
 }
 
 function fetchAndRenderCountryRusF() {
-  fetchCountry
-    .currentGeolocation()
-    .then(renderCountryRusF)
+  fetchCountry.currentGeolocation().then(renderCountryRusF).catch(onFetchError);
+}
 
+function fetchAndRenderCountrySQRus() {
+  fetchCountry
+    .searchQueryGeolocation(searchQuery)
+    .then(renderCountrySQRus)
+    .catch(onFetchError);
+}
+function fetchAndRenderCountrySQ() {
+  fetchCountry
+    .searchQueryGeolocation(searchQuery)
+    .then(renderCountrySQ)
     .catch(onFetchError);
 }
 
@@ -218,6 +214,8 @@ function renderCountry(city, country) {
 
 function renderCountryF(temp) {
   refs.main.innerHTML = weatherCardF(temp);
+  timingFunctionState = true;
+  timingFunction();
 }
 function renderCountrySQ(city, country) {
   refs.main.innerHTML = weatherCardSQ(city, country);
@@ -226,6 +224,8 @@ function renderCountrySQ(city, country) {
 }
 function renderCountrySQF(city, country) {
   refs.main.innerHTML = weatherCardSQF(city, country);
+  timingFunctionState = true;
+  timingFunction();
 }
 
 function renderCountrySQRus(city, country) {
@@ -235,6 +235,8 @@ function renderCountrySQRus(city, country) {
 }
 function renderCountrySQRusF(city, country) {
   refs.main.innerHTML = weatherCardSQRusF(city, country);
+  timingFunctionState = false;
+  timingFunction();
 }
 function renderCountryRus(city, country) {
   refs.main.innerHTML = weatherCardRus(city, country);
@@ -243,6 +245,8 @@ function renderCountryRus(city, country) {
 }
 function renderCountryRusF(city, country) {
   refs.main.innerHTML = weatherCardRusF(city, country);
+  timingFunctionState = false;
+  timingFunction();
 }
 
 function timingFunction() {
