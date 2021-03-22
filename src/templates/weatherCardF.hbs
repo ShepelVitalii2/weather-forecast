@@ -4,32 +4,33 @@
 
         <div class="weather">
 
-            <h2 class="city">{{location.name}}, {{location.country}}</h2>
+            <h2 class="city">{{currentWeatherInfo.location.name}}, {{currentWeatherInfo.location.country}}</h2>
             <h4 class="date">{{time}}</h4>
             <div class="temperature-block">
-                <h1 class="temperature">{{forecast.forecastday.0.day.avgtemp_f}}F°</h1>
-                <img src="{{forecast.forecastday.0.day.condition.icon}}" alt="weather picture" class="icon" />
+                <h1 class="temperature">{{currentWeatherInfo.forecast.forecastday.0.day.avgtemp_f}}F°</h1>
+                <img src="{{currentWeatherInfo.forecast.forecastday.0.day.condition.icon}}" alt="weather picture"
+                    class="icon" />
             </div>
             {{!-- <div class="summary">Its a {{forecast.forecastday.0.day.condition.text}} today</div> --}}
             <div id="temperature">
                 <div class="apparent-temperature" id='temp'>Apparent temperature is:
-                    {{forecast.forecastday.0.day.avgtemp_f}} F°</div>
+                    {{currentWeatherInfo.forecast.forecastday.0.day.avgtemp_f}} F°</div>
             </div>
 
-            <div class="wind">Wind speed: {{forecast.forecastday.0.day.maxwind_kph}}</div>
-            <div class="humidity">Humidity: {{forecast.forecastday.0.day.avghumidity}} %</div>
+            <div class="wind">Wind speed: {{currentWeatherInfo.forecast.forecastday.0.day.maxwind_kph}}</div>
+            <div class="humidity">Humidity: {{currentWeatherInfo.forecast.forecastday.0.day.avghumidity}} %</div>
             <div class="js-card-container"></div>
 
         </div>
         <div class="sub-weather">
             <h4 class="add-info">Additional information:</h4>
             <p class="add-info">Chance of rain :
-                {{forecast.forecastday.1.day.daily_chance_of_rain}} %
+                {{queryResultWather.forecast.forecastday.1.day.daily_chance_of_rain}} %
             </p>
-            <p class="add-info">Chance of snow : {{forecast.forecastday.1.day.daily_chance_of_snow}} %
+            <p class="add-info">Chance of snow : {{queryResultWather.forecast.forecastday.1.day.daily_chance_of_snow}} %
             </p>
-            <p class="add-info">Sunrise at : {{forecast.forecastday.1.astro.sunrise}}</p>
-            <p class="add-info">Sunset at : {{forecast.forecastday.1.astro.sunset}}</p>
+            <p class="add-info">Sunrise at : {{queryResultWather.forecast.forecastday.1.astro.sunrise}}</p>
+            <p class="add-info">Sunset at : {{queryResultWather.forecast.forecastday.1.astro.sunset}}</p>
             <div class="love">
                 <p class="add-info">
                 </p>
@@ -46,14 +47,15 @@
             <h2 class="city">Weather for tomorrow</h2>
 
             <div class="temperature-block">
-                <h1 class="temperature">{{forecast.forecastday.1.day.avgtemp_f}}F°</h1>
-                <img src="{{forecast.forecastday.1.day.condition.icon}}" alt="weather picture" class="icon" />
+                <h1 class="temperature">{{queryResultWather.forecast.forecastday.1.day.avgtemp_f}}F°</h1>
+                <img src="{{queryResultWather.forecast.forecastday.1.day.condition.icon}}" alt="weather picture"
+                    class="icon" />
             </div>
             {{!-- <div class="summary">Its a {{forecast.forecastday.1.day.condition.text}} tommorow</div> --}}
             <div class="apparent-temperature">Apparent temperature is:
-                {{forecast.forecastday.1.day.avgtemp_f}} F°</div>
-            <div class="wind">max wind speed: {{forecast.forecastday.1.day.maxwind_kph}} km</div>
-            <div class="humidity">Humidity: {{forecast.forecastday.1.day.avghumidity}} %</div>
+                {{queryResultWather.forecast.forecastday.1.day.avgtemp_f}} F°</div>
+            <div class="wind">max wind speed: {{queryResultWather.forecast.forecastday.1.day.maxwind_kph}} km</div>
+            <div class="humidity">Humidity: {{queryResultWather.forecast.forecastday.1.day.avghumidity}} %</div>
             <div class="js-card-container"></div>
 
         </div>
@@ -64,14 +66,16 @@
             <h2 class="city">Weather for the day after tommorow</h2>
 
             <div class="temperature-block">
-                <h1 class="temperature">{{forecast.forecastday.2.day.avgtemp_f}}F°</h1>
-                <img src="{{forecast.forecastday.2.day.condition.icon}}" alt="weather picture" class="icon" />
+                <h1 class="temperature">{{queryResultWather.forecast.forecastday.2.day.avgtemp_f}}F°</h1>
+                <img src="{{queryResultWather.forecast.forecastday.2.day.condition.icon}}" alt="weather picture"
+                    class="icon" />
             </div>
-            <div class="summary">Will be {{forecast.forecastday.2.day.condition.text}} after tommorow</div>
+            <div class="summary">Will be {{queryResultWather.forecast.forecastday.2.day.condition.text}} after tommorow
+            </div>
             <div class="apparent-temperature">Apparent temperature is:
-                {{forecast.forecastday.2.day.avgtemp_f}} F°</div>
-            <div class="wind">Max wind speed: {{forecast.forecastday.2.day.maxwind_kph}} km</div>
-            <div class="humidity">Humidity: {{forecast.forecastday.2.day.avghumidity}} %</div>
+                {{queryResultWather.forecast.forecastday.2.day.avgtemp_f}} F°</div>
+            <div class="wind">Max wind speed: {{queryResultWather.forecast.forecastday.2.day.maxwind_kph}} km</div>
+            <div class="humidity">Humidity: {{queryResultWather.forecast.forecastday.2.day.avghumidity}} %</div>
             <div class="js-card-container"></div>
 
         </div>

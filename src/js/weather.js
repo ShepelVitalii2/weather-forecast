@@ -165,17 +165,11 @@ refs.onChangeLangClick.addEventListener('click', () => {
 });
 
 function fetchAndRenderCountry() {
-  fetchCountry
-    .currentIpWeatherForThreeDays()
-    .then(renderCountry)
-    .catch(onFetchError);
+  fetchCountry.currentGeolocation().then(renderCountry).catch(onFetchError);
 }
 
 function fetchAndRenderCountryF() {
-  fetchCountry
-    .currentIpWeatherForThreeDays()
-    .then(renderCountryF)
-    .catch(onFetchError);
+  fetchCountry.currentGeolocation().then(renderCountryF).catch(onFetchError);
 }
 
 function fetchAndRenderCountryRus() {
